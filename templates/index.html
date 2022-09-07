@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Iris Classifier</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+
+	<h1><CENTER>Textual Semantic Similarity</CENTER></h1>
+	<form id="myform" method="POST">
+		<input type="text" name="T1" placeholder="Text 1"><br><br>
+		<input type="text" name="T2" placeholder="Text 2"><br><br>
+
+	</form>
+	<button id="predict">Predict</button>
+	<h2 id="result"></h2>
+	<script type="text/javascript">
+
+		$(function() {
+			$('#predict').click(function() {
+				event.preventDefault();
+				var form_data = new FormData($('#myform')[0]);
+				console.log(form_data);
+				$.ajax({
+					type: 'POST',
+					url: '/predict',
+					data: form_data,
+					contentType: false,
+					processData: false,
+				}).done(function(data, textStatus, jqXHR){
+					$('#result').text(data);
+		
+				}).fail(function(data){
+					alert('error!');
+				});
+			});
+		});
+			
+	</script>
+
+</body>
+</html>
